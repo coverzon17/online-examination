@@ -1,8 +1,10 @@
 import { React, ReactDOM } from 'chen-react';
-import { Home } from './components/home';
+import { Router, browserHistory } from 'react-router';
+
+import routes from './routes';
 
 export const CONTENT = (
-  <Home />
+  <Router routes={routes} history={browserHistory} />
 );
 
 if (typeof document != 'undefined' && document.getElementById) {

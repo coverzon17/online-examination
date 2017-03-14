@@ -25,8 +25,10 @@
   "license": "ISC",
   "dependencies": {
     "chen": "git://github.com/chen-framework/chen.git#compiled",
+    "chen-react": "^0.1.4",
     "connect-redis": "^3.0.2",
-    "mysql": "^2.10.2"
+    "mysql": "^2.10.2",
+    "react-router": "^2.8.1"
   },
   "devDependencies": {
     "bower": "^1.7.9",
