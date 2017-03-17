@@ -3,6 +3,7 @@ import { Router, browserHistory } from 'react-router';
 
 import routes from './routes';
 
+
 export const CONTENT = (
   <Router routes={routes} history={browserHistory} />
 );

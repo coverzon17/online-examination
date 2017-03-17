@@ -40,7 +40,7 @@ export default {
      * When you start the application it binds and listens for connections on the specified port
      * @type {Number}
      */
-    port: argument('port', 3000),
+    port: env('APP_PORT', 3015) || argument('port', 3000),
 
     /**
      * Default timezone for your application
@@ -79,7 +79,7 @@ export default {
      */
     guards: {
       site: {
-        model: 'User'
+        model: 'Owner'
       }
     }
   },

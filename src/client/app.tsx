@@ -10,7 +10,6 @@ export class App extends Component<AppProps, AppState> {
     return (
       <div>
         {this.props.children}
-        example
       </div>
     );
   }
