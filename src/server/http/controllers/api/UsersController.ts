@@ -1,10 +1,10 @@
 import { Controller, Request, Response } from 'chen/web';
-import { injectable, Validation, Hash } from 'chen/core';
+import { injectable, ValidatorException, Hash } from 'chen/core';
 import { OwnerService } from 'app/services';
 @injectable()
 export class UsersController extends Controller {
 
-  constructor(private ownerService: OwnerService, private validation: Validation) {
+  constructor(private ownerService: OwnerService) {
     super();
   }
 
@@ -13,30 +13,26 @@ export class UsersController extends Controller {
   }
 
   public async login(request: Request, response: Response) {
+    console.log('logging in');
     let data = request.input.all();
-    let validation = this.validation.make(data,{
+    this.ownerService.validate(data,{
       email: ['required', 'email'],
       password: ['required']
     });
 
-    if (validation.fails()) {
-      data = validation.getErrors()['content'];
-    }
-
     let account = await this.ownerService.findOne({email: data['email']});
-    if (data && account) {
-      if (await Hash.check(data['password'], account.get('password'))) {
-        request.auth().login(account);
-        data = {isLogin: true, user: await request.auth().user()};
-      } else {
-        data = {message: 'incorrect password.', isLogin: false};
-      }
-
+    
+    if (account && await Hash.check(data['password'], account.password.valueOf())) {
+      request.auth().login(account);
     } else {
-      data = {message: 'account not found'};
+      throw new ValidatorException({password: ['incorrect password']});
     }
 
-    return response.json({data});
+    return response.json({
+      data: { 
+        success: true
+      }
+    });
   }
 
   public async logout(request: Request, response: Response) {
@@ -44,17 +40,35 @@ export class UsersController extends Controller {
       request.auth().logout();
     };
 
-    return response.redirect('/login');
+    return response.json({data: {success: true}});
   }
 
   public async register(request: Request, response: Response) {
     let data = request.input.all();
     this.ownerService.validate(data, {
       email: ['required', 'email'],
-      first_name: ['required'],
-      last_name: ['required'],
-      password: ['required']
+      firstName: ['required'],
+      lastName: ['required'],
+      password: ['required'],
+      confirm_password: [ 'required', 'same:password']
     });
+
+    let newOwner = await this.ownerService.create({
+      email: data['email'],
+      first_name: data['firstName'],
+      last_name: data['lastName'],
+      password: await Hash.make(data['password'])
+    });
+
+    if(newOwner) {
+      request.auth().login(newOwner);
+    }
+
+    return response.json({data: {success: true}});
+  }
+
+  public async show(request: Request, response: Response) {
+    return response.json({data: {user: await request.auth().user()} });
   }
 
   public async hello(request: Request, response: Response) {
