@@ -84,6 +84,6 @@ export class Logout extends Component<LogoutProps, LogoutState> {
   }
 
   public render() {
-    return (<Link to="/login" className="btn btn-primary" onClick={this.logout} >{this.props.title}</Link>);
+    return (<Link to="/login" onClick={this.logout} >{this.props.title}</Link>);
   }
 }
