@@ -1,10 +1,11 @@
 import { Controller, Request, Response } from 'chen/web';
 import { injectable, ValidatorException, Hash } from 'chen/core';
-import { OwnerService } from 'app/services';
+import { OwnerService, CompanyService } from 'app/services';
+
 @injectable()
 export class UsersController extends Controller {
 
-  constructor(private ownerService: OwnerService) {
+  constructor(private ownerService: OwnerService, private companyService: CompanyService) {
     super();
   }
 
@@ -13,7 +14,6 @@ export class UsersController extends Controller {
   }
 
   public async login(request: Request, response: Response) {
-    console.log('logging in');
     let data = request.input.all();
     this.ownerService.validate(data,{
       email: ['required', 'email'],
@@ -45,22 +45,29 @@ export class UsersController extends Controller {
 
   public async register(request: Request, response: Response) {
     let data = request.input.all();
+    console.log(data);
     this.ownerService.validate(data, {
       email: ['required', 'email'],
-      firstName: ['required'],
-      lastName: ['required'],
+      firstname: ['required'],
+      lastname: ['required'],
       password: ['required'],
-      confirm_password: [ 'required', 'same:password']
+      confirm_password: [ 'required', 'same:password'],
+      company_name: ['required']
     });
 
     let newOwner = await this.ownerService.create({
       email: data['email'],
-      first_name: data['firstName'],
-      last_name: data['lastName'],
+      first_name: data['firstname'],
+      last_name: data['lastname'],
       password: await Hash.make(data['password'])
     });
 
     if(newOwner) {
+      await this.companyService.create({
+        name: data['company_name'],
+        email: data['company_email'],
+        owner_id: newOwner.getId()
+      });
       request.auth().login(newOwner);
     }
 

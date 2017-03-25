@@ -43,20 +43,26 @@ export class Login extends Component<LoginProps, LoginState> {
   }
   public render() {
     return (
-      <div className="col-xs-8">
-        {this.state.error ? <DisplayError error={this.state.error} /> : null }
+      <div className="col-xs-offset-4 col-xs-4 col-xs-12">
         <form onSubmit={this.login}>
-          <h3 className="text-primary">Login</h3>
+          <h3 className="text-primary text-center">Login</h3>
            <div className="form-group">
-             <label>Email:</label>
-             <Form.Input type="email" className="form-control" placeholder="Email" valueLink={this.linkState('email')}/>
-           </div>
-           <div>
-             <label>Password:</label>
-             <Form.Input type="password" className="form-control" placeholder="Password" valueLink={this.linkState('password')}/>
+           {this.state.error ? <DisplayError error={this.state.error} /> : null }
+             <div className="form-group">
+               <label>Email:</label>
+               <Form.Input type="email" className="form-control" placeholder="Email" valueLink={this.linkState('email')}/>
+             </div>
+             <div>
+               <label>Password:</label>
+               <Form.Input type="password" className="form-control" placeholder="Password" valueLink={this.linkState('password')}/>
+             </div>
            </div>
            <div className="form-group">
-             <button type="submit" className="btn btn-primary">Submit</button>
+             <button type="submit" className="btn btn-primary btn-block">Submit</button>
+
+             <div className="pull-right form-group">
+              <a href="/register">click here to register</a>
+             </div>
            </div>
         </form>
       </div>

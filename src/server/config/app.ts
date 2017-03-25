@@ -40,7 +40,7 @@ export default {
      * When you start the application it binds and listens for connections on the specified port
      * @type {Number}
      */
-    port: env('APP_PORT', 3015) || argument('port', 3000),
+    port: env('APP_PORT', 3015) || argument('port', 3015),
 
     /**
      * Default timezone for your application

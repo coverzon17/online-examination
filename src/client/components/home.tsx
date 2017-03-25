@@ -11,11 +11,12 @@ export function HomeNavbar(props) {
       <div className="container-fluid">
         <div className="navbar-header">
 
-	      <a href="#" className="navbar-brand">project</a>
+	      <a href="#" className="navbar-brand">Online Examination</a>
 	    </div>
 
 	    <ul className="nav navbar-nav">
 	      <li><a href="/about">about</a></li>
+        <li><a href="/settings">settings</a></li>
 	    </ul>
 
 	    <ul className="nav navbar-nav navbar-right">
@@ -40,13 +41,6 @@ export class Home extends Component<HomeProps, HomeState> {
   	this.state = {signIn: true};
   }
 
-  @bind()
-  signUp(e: MouseEvent) {
-  	e.preventDefault();
-  	this.setState({
-  		signIn: !this.state.signIn
-  	});
-  }
 
   public render() {
     return (<div>
@@ -56,10 +50,7 @@ export class Home extends Component<HomeProps, HomeState> {
         	
         </div>
         <div className="col-xs-3">
-          {this.state.signIn ? <Login router={this.props.router} /> : <Register router={this.props.router}/>};
-          <button className="btn btn-link" onClick={this.signUp}>
-            click to {this.state.signIn ? 'sign up' : 'sign in'}
-          </button>
+          <p>user information</p>
         </div>
       </div>
     </div>);
