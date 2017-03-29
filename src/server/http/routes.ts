@@ -8,6 +8,7 @@ export default function (router: Router, config: Config) {
     router.route('POST', 'user/register', 'UsersController@register');
 
     router.group({middleware: ['UserAuth']}, router => {
+      router.route('GET', 'companies', 'CompanyController@show');
       router.route('POST', 'user/logout', 'UsersController@logout');
       router.route('GET', 'hello', 'UsersController@hello');
       router.route('GET', 'user/current', 'UsersController@show');

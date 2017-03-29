@@ -4,6 +4,7 @@
   },
   "globalDependencies": {
     "bootstrap": "registry:dt/bootstrap#3.3.5+20160726204056",
-    "jquery": "registry:dt/jquery#1.10.0+20170310222111"
+    "jquery": "registry:dt/jquery#1.10.0+20170310222111",
+    "node": "github:chen-framework/DefinitelyTyped/node/node.d.ts#7be68adbdff4bea14f33f54f27d3bdb5822e3b10"
   }
 }

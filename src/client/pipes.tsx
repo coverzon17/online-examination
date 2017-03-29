@@ -27,3 +27,43 @@ export function DisplayError(props: DisplayErrorProps) {
   	</div>
   );
 }
+
+export interface UserProfileProps {
+  style?: React.CSSProperties;
+  user?: any;
+}
+
+export function UserProfile(props: UserProfileProps) {
+  return (
+    <div className="col-xs-12" style={props.style}>
+      <div>
+        Email: {props.user.email}
+      </div>
+      <div>
+        Name: {props.user.firstName} {props.user.lastName}
+      </div>
+    </div>
+  );
+}
+
+
+export interface DisplayCompanyProps {
+  style?: React.CSSProperties;
+  company?: any;
+}
+
+export function DisplayCompany(props: DisplayCompanyProps) {
+  return (
+    <div className="col-xs-4 text-center" style={props.style}>
+      <div>
+        <p>title: <a href='#'> {props.company.name}</a></p>
+      </div>
+      {
+      props.company.email ? 
+        <div>
+          <p>email: {props.company.email}</p>
+        </div>: null
+      }
+    </div>
+  );
+}

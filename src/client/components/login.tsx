@@ -58,7 +58,7 @@ export class Login extends Component<LoginProps, LoginState> {
              </div>
            </div>
            <div className="form-group">
-             <button type="submit" className="btn btn-primary btn-block">Submit</button>
+             <button type="submit" className="btn btn-primary btn-block">Log-in <i className="glyphicon glyphicon-log-in"></i></button>
 
              <div className="pull-right form-group">
               <a href="/register">click here to register</a>
@@ -72,7 +72,7 @@ export class Login extends Component<LoginProps, LoginState> {
 
 export interface LogoutProps {
   router: IRouter;
-  title?: string;
+  name?: string;
 }
 
 export interface LogoutState {}
@@ -90,6 +90,6 @@ export class Logout extends Component<LogoutProps, LogoutState> {
   }
 
   public render() {
-    return (<Link to="/login" onClick={this.logout} >{this.props.title}</Link>);
+    return (<a style={{cursor: 'pointer'}} onClick={this.logout} >{this.props.name} <i className="glyphicon glyphicon-log-out"></i></a>);
   }
 }

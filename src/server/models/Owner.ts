@@ -17,7 +17,7 @@ export class Owner extends Model {
   @field()
   public email: FieldTypes.String;
 
-  @field()
+  @field({hidden: true})
   public password: FieldTypes.String;
 
   @field()
